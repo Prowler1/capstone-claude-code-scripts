@@ -1,0 +1,110 @@
+measured at commit bf2323b3021c9d3db7a31e1e7d61068c3f704497 made on 2026-10-13 04:34:03+00:00
+
+=== PULL REQUESTS ===
+total prs (no bots): 1180
+staff - prs: 62  authors: 15
+   merged: 52 (83.9%)  closed without merge: 5 (8.1%)  still open: 5 (8.1%)
+   median days to merge: 0.0  median days to close without merge: 0.0
+outside - prs: 1118  authors: 647
+   merged: 62 (5.5%)  closed without merge: 369 (33.0%)  still open: 687 (61.4%)
+   median days to merge: 0.4  median days to close without merge: 5.9
+association values: {'NONE': 1044, 'CONTRIBUTOR': 74, 'COLLABORATOR': 62}
+
+=== ISSUES ===
+total issues (no bots): 89436
+closed: 75553 (84.5%)
+close reasons (closed issues only):
+   not_planned 44192 (58.5%)
+   duplicate 20158 (26.7%)
+   completed 11203 (14.8%)
+median days to close: 28.7  75%: 42.5
+   median days to close as completed: 0.7
+   median days to close as not_planned: 38.5
+   median days to close as duplicate: 3.6
+issues with 0 comments: 7535 (8.4%)
+average comments per issue: 3.31  median: 3.0
+issues without any label: 1716
+issues with the stale label: 34762 (38.9%)
+top labels:
+labels
+bug                 44955
+stale               34762
+duplicate           24386
+platform:macos      20777
+has repro           17484
+enhancement         14062
+platform:windows    12032
+area:tui             9174
+area:model           8587
+platform:linux       7717
+area:core            7493
+area:desktop         5851
+platform:vscode      4399
+area:mcp             3826
+area:tools           3797
+labels with 'good first' or 'help wanted' in the name: {}
+
+=== WHO CLOSES ISSUES (sample of 316 issues, 258 closed) ===
+sampled issues opened after the cutoff (left out): 7  sampled issues closed after the cutoff (counted as open): 3
+sample size per month: {'2025-10': 25, '2025-11': 25, '2025-12': 25, '2026-01': 25, '2026-02': 25, '2026-03': 25, '2026-04': 25, '2026-05': 25, '2026-06': 24, '2026-07': 25, '2026-08': 25, '2026-09': 25, '2026-10': 17}
+closed by bot: 204  by issue author: 34  by someone else: 20
+unweighted share closed by bot: 79.1 %
+weighted share closed by bot: 78.8 %
+per month:
+stratum
+2025-10     87.5
+2025-11     68.0
+2025-12     79.2
+2026-01     92.0
+2026-02     75.0
+2026-03     82.6
+2026-04     80.0
+2026-05     80.0
+2026-06     71.4
+2026-07     77.3
+2026-08     76.9
+2026-09     66.7
+2026-10    100.0
+who closed (top 10):
+closed_by_login
+github-actions[bot]    199
+bcherny                  7
+claude[bot]              4
+MarshallOfSound          3
+localden                 2
+stevenpetryk             2
+codebytere-ant           2
+hackyon-anthropic        1
+fgrehm                   1
+kuzmeech                 1
+
+=== SAMPLE GROUPS FOR THE QUALITATIVE ANALYSIS ===
+closed by a bot as not planned: 135 issues, top 3 by reactions:
+number  reactions_total  comments  days_open     closed_by_login                                            labels
+ 13568                9         5      105.0 github-actions[bot]  bug; duplicate; has repro; platform:macos; stale
+ 22846                9        13      114.0 github-actions[bot] bug; has repro; platform:linux; area:tools; stale
+ 18623                8         9       71.0 github-actions[bot]  bug; has repro; platform:macos; area:core; stale
+closed by a bot as duplicate: 67 issues, top 3 by reactions:
+number  reactions_total  comments  days_open     closed_by_login                                                      labels
+ 13738               44        35      148.0         claude[bot]                  bug; has repro; platform:windows; area:tui
+ 13446               11        12      144.0         claude[bot] bug; has repro; platform:macos; area:tui; area:core; memory
+ 23456                2         4        4.0 github-actions[bot]                                                   duplicate
+still open: 58 issues, top 3 by reactions:
+number  reactions_total  comments  days_open closed_by_login                            labels
+ 14280              104        28      300.0                 enhancement; area:tools; area:ide
+ 66115               24        20      127.0                 enhancement; area:cost; area:core
+ 24057               21        35      247.0                  enhancement; area:core; area:mcp
+most reactions of all closed sampled issues: #13738 with 44
+most reactions of all sampled issues: #14280 with 104
+
+sampled issues labelled has repro: 89
+  closed by a bot as not planned: 47 (52.8%)
+  closed as completed: 18 (20.2%)
+open sampled issues with 10+ reactions: 5  of them older than 90 days: 5
+
+chosen examples:
+number           created_at            closed_at  state state_reason     closed_by_login  days_open  reactions_total  comments                                                     labels
+ 14280 2025-12-17T04:33:11Z                        open                                       300.0              104        28                          enhancement; area:tools; area:ide
+ 13738 2025-12-11T22:23:31Z 2026-05-08T19:23:39Z closed    duplicate         claude[bot]      148.0               44        35                 bug; has repro; platform:windows; area:tui
+ 13183 2025-12-06T04:16:06Z 2026-02-27T22:07:27Z closed  not_planned github-actions[bot]       84.0                3         8 bug; has repro; platform:macos; area:tui; area:a11y; stale
+

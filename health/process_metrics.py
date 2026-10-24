@@ -135,6 +135,7 @@ sample = sample[pd.to_datetime(sample["created_at"], utc=True) <= cutoff_date].c
 # issues closed after the cutoff were still open at the cutoff
 closed_later = (sample["closed_at"] != "") & (to_date(sample["closed_at"]) > cutoff_date)
 sample.loc[closed_later, "state"] = "open"
+sample.loc[closed_later, "state_reason"] = ""
 # the number of issues per month has to be counted again, because the last month is now shorter
 sample["month_population"] = sample["stratum"].map(all_issues["created_at"].str[:7].value_counts())
 
@@ -161,6 +162,56 @@ print("per month:")
 print((monthly["bot_share"] * 100).round(1).to_string())
 print("who closed (top 10):")
 print(closed_sample["closed_by_login"].value_counts().head(10).to_string())
+print()
+
+# ---------------- 4. numbers for the qualitative analysis (sample) ----------------
+# we pick the examples for the qualitative analysis from the sample, so we print the groups and the top issues per group
+sample["reactions_total"] = sample["reactions_total"].astype(int)
+sample["comments"] = sample["comments"].astype(int)
+sample["created"] = pd.to_datetime(sample["created_at"], utc=True)
+sample["closed"] = to_date(sample["closed_at"])
+sample.loc[sample["state"] == "open", "closed"] = pd.NaT
+# how long the issue was open: until it was closed, or until the cutoff if it is still open
+sample["days_open"] = ((sample["closed"].fillna(cutoff_date) - sample["created"]).dt.total_seconds() / 86400).round(0)
+sample["closed_by_bot"] = [s == "closed" and is_bot(l, t) for s, l, t in
+                           zip(sample["state"], sample["closed_by_login"], sample["closed_by_type"])]
+sample["label_list"] = sample["labels"].str.split("; ")
+
+groups = {
+    "closed by a bot as not planned": sample[sample["closed_by_bot"] & (sample["state_reason"] == "not_planned")],
+    "closed by a bot as duplicate": sample[sample["closed_by_bot"] & (sample["state_reason"] == "duplicate")],
+    "still open": sample[sample["state"] == "open"],
+}
+print("=== SAMPLE GROUPS FOR THE QUALITATIVE ANALYSIS ===")
+columns = ["number", "reactions_total", "comments", "days_open", "closed_by_login", "labels"]
+for name, g in groups.items():
+    print(name + ":", len(g), "issues, top 3 by reactions:")
+    print(g.sort_values("reactions_total", ascending=False, kind="stable")[columns].head(3).to_string(index=False))
+closed_all = sample[sample["state"] == "closed"]
+top_closed = closed_all.sort_values("reactions_total", ascending=False, kind="stable").iloc[0]
+print("most reactions of all closed sampled issues: #" + top_closed["number"], "with", top_closed["reactions_total"])
+top_all = sample.sort_values("reactions_total", ascending=False, kind="stable").iloc[0]
+print("most reactions of all sampled issues: #" + top_all["number"], "with", top_all["reactions_total"])
+print()
+
+# issues that were triaged as reproducible bugs
+repro = sample[sample["label_list"].apply(lambda labels: "has repro" in labels)]
+repro_bot_np = (repro["closed_by_bot"] & (repro["state_reason"] == "not_planned")).sum()
+repro_done = ((repro["state"] == "closed") & (repro["state_reason"] == "completed")).sum()
+print("sampled issues labelled has repro:", len(repro))
+print("  closed by a bot as not planned:", repro_bot_np, "(" + str(pct(repro_bot_np, len(repro))) + "%)")
+print("  closed as completed:", repro_done, "(" + str(pct(repro_done, len(repro))) + "%)")
+
+# popular open issues
+popular = groups["still open"][groups["still open"]["reactions_total"] >= 10]
+print("open sampled issues with 10+ reactions:", len(popular), " of them older than 90 days:", (popular["days_open"] > 90).sum())
+print()
+
+# the three issues we discuss in the qualitative analysis
+print("chosen examples:")
+chosen = sample[sample["number"].isin(["13183", "13738", "14280"])]
+print(chosen[["number", "created_at", "closed_at", "state", "state_reason", "closed_by_login",
+              "days_open", "reactions_total", "comments", "labels"]].to_string(index=False))
 print()
 
 out.close()

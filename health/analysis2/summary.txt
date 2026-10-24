@@ -1,0 +1,252 @@
+cutoff commit: bf2323b3021c9d3db7a31e1e7d61068c3f704497 made on 2026-10-13 04:34:03+00:00
+commits up to and including the cutoff: 644
+
+=== FILTERING ===
+account types of commit authors: {'User': 643, 'Bot': 1}
+commits without a linked account: 0
+merge commits (2 parents, left out like on the github contributors page): 71
+
+account actions-user - 359 commits, type: ['User']
+   names: ['GitHub Actions (publish-mods)', 'GitHub Actions']  emails: ['actions@github.com']
+   commit messages (first line):
+message_first_line
+chore: Update CHANGELOG.md                 209
+chore: Update CHANGELOG.md and feed.xml    143
+chore: Update mods/                          7
+   commits per month: min 15 max 47 in 13 months
+
+account claude[bot] - 1 commits, type: ['Bot']
+   names: ['claude[bot]']  emails: ['209825114+claude[bot]@users.noreply.github.com']
+   commit messages (first line):
+message_first_line
+feat: Incorporate explanatory functionality into learning-output-style plugin    1
+   commits per month: min 1 max 1 in 1 months
+
+account claude - 12 commits, type: ['User']
+   names: ['Claude']  emails: ['noreply@anthropic.com']
+   commit messages (first line):
+message_first_line
+Remove a compiled Python file committed by mistake                          1
+Run @claude mentions and dedupe in auto mode on a model that supports it    1
+Fail the check when settings name a file outside the repository             1
+Flag defaultMode anywhere in a job that calls Claude                        1
+Check settings files and --settings for a permission mode                   1
+   commits per month: min 1 max 7 in 5 months
+
+logins that commit under more than one name: {'actions-user': 2, 'ant-kurt': 2, 'bogini': 2, 'catherinewu': 2, 'jportner-ant': 2, 'km-anthropic': 2, 'poteat': 2, 'sarahdeaton': 2, 'whyuan-cc': 2}
+logins that commit with more than one email: {'ThariqS': 2, 'chrislloyd': 3, 'fvolcic': 2, 'jportner-ant': 2, 'mhegazy': 2}
+emails used by more than one login: {}
+names used by more than one login: {'William Hu': 2}
+
+data from 2025-10-15 to 2026-10-13
+all activities (merge commits left out): 92037
+activity
+issue           89487
+pull_request     1182
+review            795
+commit            573
+Name: count, dtype: int64
+
+--- BOT ACTIVITY BREAKDOWN ---
+activity                            commit  issue  pull_request  review  Total
+login                                                                         
+actions-user                           359      0             0       0    359
+copilot-pull-request-reviewer[bot]       0      0             0      58     58
+claude[bot]                              1     15             2       1     19
+cloudingenium-automation[bot]            0      7             0       0      7
+sl-factory[bot]                          0      3             0       0      3
+aaas-love-automation[bot]                0      2             0       0      2
+agentbridge-fixer[bot]                   0      2             0       0      2
+devin-ai-integration[bot]                0      2             0       0      2
+overheadlabs-bot[bot]                    0      2             0       0      2
+vsits-team-lead-agent[bot]               0      2             0       0      2
+agentx-workflow[bot]                     0      1             0       0      1
+agenty-workflow[bot]                     0      1             0       0      1
+ayni-plan[bot]                           0      1             0       0      1
+boettiger-lab-llm-agent[bot]             0      1             0       0      1
+builder-alxpck[bot]                      0      1             0       0      1
+capy-ai[bot]                             0      1             0       0      1
+cylentra-agent[bot]                      0      1             0       0      1
+elon-mapstack-bot[bot]                   0      1             0       0      1
+james-bong-cw[bot]                       0      1             0       0      1
+jessica-claude[bot]                      0      1             0       0      1
+michaels-omneo-workers[bot]              0      1             0       0      1
+prometheus-pioneerlands[bot]             0      1             0       0      1
+rhgills-deputy[bot]                      0      1             0       0      1
+starscream-bot[bot]                      0      1             0       0      1
+yakrwarebot[bot]                         0      1             0       0      1
+yittbox-automation[bot]                  0      1             0       0      1
+
+activities by bots: 472 = 0.5 %
+commits by bots: 360 of 573 non-merge commits = 62.8 %
+  (counted with merge commits: 360 of 644 = 55.9 %)
+
+ghost (deleted accounts): 175 activities in 12 months
+claude account: 12 activities {'commit': 12}
+
+=== ACTIVITY ===
+human activities: 91565
+   issue 89436 (97.7%)
+   pull_request 1180 (1.3%)
+   review 736 (0.8%)
+   commit 213 (0.2%)
+activities per month:
+month
+2025-10     1142
+2025-11     1990
+2025-12     3183
+2026-01     6181
+2026-02     7261
+2026-03    11764
+2026-04    13473
+2026-05     9177
+2026-06     8254
+2026-07    10375
+2026-08     8065
+2026-09     7598
+2026-10     3102
+commits per month:
+month
+2025-10     12
+2025-11     17
+2025-12     12
+2026-01     22
+2026-02     14
+2026-03      3
+2026-04      4
+2026-05      6
+2026-06      5
+2026-07      1
+2026-08      0
+2026-09    113
+2026-10      4
+
+=== CONTRIBUTORS ===
+number of contributors: 64586
+  with code activity (commit/pr/review): 1106
+  only issues: 63480 (98.3%)
+
+how many activities per person:
+       people     %
+total              
+1       54050  83.7
+2        6677  10.3
+3-5      3015   4.7
+6-10      585   0.9
+11-50     240   0.4
+>50        19   0.0
+
+active months per person:
+               people     %
+active_months              
+1               57952  89.7
+2                4948   7.7
+3                1104   1.7
+4                 316   0.5
+5                 132   0.2
+6                  67   0.1
+7                  32   0.0
+8                  16   0.0
+9                   9   0.0
+10                  6   0.0
+11                  1   0.0
+12                  3   0.0
+
+top issue openers (check if these are really humans):
+activity             issue  active_days  issues_per_day
+login                                                  
+sworrl                1513           25            60.5
+coygeek               1504          159             9.5
+andreapeterfly-prog    289           84             3.4
+Sahasrara              276           68             4.1
+mimoccc                134            4            33.5
+Nahuel990              127            7            18.1
+Mig-Sornrakrit         101           34             3.0
+ThatDragonOverThere    101           62             1.6
+carrotRakko             92           52             1.8
+fwends                  91           53             1.7
+ccq1818                 76            1            76.0
+TheAviv                 63           27             2.3
+wshallwshall            59           24             2.5
+David-Noble-at-work     58            7             8.3
+kyledempster7           55            4            13.8
+
+concentration of total - 64586 people, 91378 in total
+   50 % done by top 18897 people
+   80 % done by top 46311 people
+   90 % done by top 55449 people
+concentration of code - 1106 people, 2113 in total
+   50 % done by top 158 people
+   80 % done by top 684 people
+   90 % done by top 895 people
+concentration of accepted - 36 people, 315 in total
+   50 % done by top 2 people
+   80 % done by top 12 people
+   90 % done by top 19 people
+concentration of issue - 63682 people, 89265 in total
+   50 % done by top 19050 people
+   80 % done by top 45829 people
+   90 % done by top 54756 people
+
+people who opened a pr: 661  of them with a merged pr: 33
+people who reviewed: 489  of them did nothing else: 408  of those with exactly 1 review: 356
+
+new contributors per month:
+first
+2025-10     924
+2025-11    1526
+2025-12    2334
+2026-01    4224
+2026-02    5298
+2026-03    8650
+2026-04    9914
+2026-05    6632
+2026-06    5321
+2026-07    6899
+2026-08    5712
+2026-09    5098
+2026-10    2054
+Name: count, dtype: int64
+
+gaps between active days (people with 2+ days): 16954 gaps
+  median: 16.0  75%: 48.0  90%: 103.0  95%: 143.0
+  -> dormant threshold: 103 days
+
+=== CATEGORIES ===
+key = accepted changes, newcomer = 90 days, dormant = 103 days
+            people     %
+category                
+one-time     37676  58.3
+newcomer     16643  25.8
+dormant       5128   7.9
+occasional    5127   7.9
+key             12   0.0
+
+people with an accepted change: 36  accepted changes in total: 315
+key contributors: 12 (the next person has 6 accepted changes, the last key person has 6 )
+activity           commit  merged_pr  accepted  pull_request  review  issue  active_months  share_of_accepted_%                                             emails
+login                                                                                                                                                             
+poteat                104         35       139            42       0      2              3                 44.1                    poteat@users.noreply.github.com
+fvolcic                15          6        21             8       0      0              3                  6.7                             franklin@anthropic.com
+OctavianGuzu            8          8        16             8       0      0              4                  5.1                                  oct@anthropic.com
+ant-kurt                8          5        13             5      11      0              6                  4.1                                 kurt@anthropic.com
+ashwin-ant              5          5        10             6      11      2              8                  3.2                               ashwin@anthropic.com
+bcherny                 5          5        10             9       9      0              5                  3.2                                boris@anthropic.com
+chrislloyd              5          5        10             5       5      0              4                  3.2  718+chrislloyd@users.noreply.github.com, chris...
+hackyon-anthropic       4          4         8             4       3      0              2                  2.5                              hackyon@anthropic.com
+whyuan-cc               6          2         8             2       3      0              2                  2.5                               whyuan@anthropic.com
+dhollman                4          3         7             3       2      0              3                  2.2                                daisy@anthropic.com
+ThariqS                 3          3         6             4       2      0              3                  1.9             thariq@anthropic.com, trq212@gmail.com
+catherinewu             3          3         6             3       1      0              2                  1.9                                catwu@anthropic.com
+accepted changes per month of the top key contributor (poteat):
+month
+2026-09    102
+2026-10      2
+
+=== NEWCOMERS AND RETURN RATE ===
+newcomers: 16643  with code activity: 69  with an accepted change: 1
+contributors whose first activity was more than 90 days before the end: 47943
+  active on more than one day: 16.1 %
+  only issues: 46906 -> 15.9 % came back
+  opened a pr: 617 -> 31.3 % came back
+  had a change accepted: 35 -> 77.1 % came back
