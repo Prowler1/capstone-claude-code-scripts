@@ -156,6 +156,6 @@ Quotes and links in the qualitative analysis come from the GitHub threads themse
 
 ## Known limitations of the data
 
-- The stored sample has 323 issues instead of 325: issues #67457 (June 2026) and #99536 (October 2026) are missing. After the cutoff, 316 sampled issues remain.
+- The stored sample has 323 issues instead of 325 (because we intially deleted a few rows because we were getting a csv read error, so the cause were the commits with unknown end characters which broke the csv so we had to remove it): issues #67457 (June 2026) and #99536 (October 2026) are missing. After the cutoff, 316 sampled issues remain.
 - `author_association` only marks people whose organisation membership is public, so some staff may be counted as outside contributors.
 - 71 merge commits are left out of all per-person counts, like on GitHub's contributors page.
