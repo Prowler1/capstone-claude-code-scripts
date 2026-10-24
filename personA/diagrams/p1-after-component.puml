@@ -1,0 +1,50 @@
+@startuml p1-after-component
+' Figure A.2 — proposal P1: mods/diff/hooks after decomposing register.ts.
+' Top: as is at bf2323b. Bottom: proposed. Shaded = implemented as the A7
+' prototype (personA/prototypes/p1-body-loader); the rest is proposed only.
+' Provenance: manual design from the M1/M2 results and the closure-variable
+' inventory of register.ts L43–71; rendered using PlantUML.
+
+' Smetana (built-in) layout: no Graphviz needed, and it places the package
+' declared last on top, so "as is" is declared after "proposed".
+!pragma layout smetana
+skinparam shadowing false
+skinparam componentStyle rectangle
+left to right direction
+
+
+package "proposed (P1)" {
+  component "register.ts\n(wiring only: on(...) → controller)" as R1
+  component "PaneController\nowns model; dispatches\nevents to coordinators" as C1
+  component "BodyLoader\nstamp, base, asked-set\nload(redraw) / reset()" as BL #DDEEFF
+  component "RefreshScheduler\nisRefreshing, queued,\ndebounce + HEAD poll" as RS
+  component "BackendPin\nbackend, probing, pin,\nepoch, unpin()" as BP
+  component "PaneLifecycle\nisPaneOpen, awaited,\nauto-open, restore" as PL
+  component "AskComposer\narmed, carrying" as AC
+  component "pane-state/\n(Model + Update)" as PS1
+  component "views/\n(View)" as V1
+  component "backend/ git/" as B1
+
+  R1 --> C1
+  C1 --> BL
+  C1 --> RS
+  C1 --> BP
+  C1 --> PL
+  C1 --> AC
+  C1 --> PS1
+  C1 --> V1
+  BL --> B1
+  BP --> B1
+  RS --> B1
+}
+
+package "as is (bf2323b)" {
+  component "register.ts\n— 1 062 LOC, 155 decision points\n— 20 `let` + 5 mutable containers\n— 10 hook registrations\n— Controller + Coordinator\n  + Information Holder" as R0
+  component "pane-state/\n(Model + Update)" as PS0
+  component "views/\n(View)" as V0
+  component "backend/ git/" as B0
+  R0 --> PS0
+  R0 --> V0
+  R0 --> B0
+}
+@enduml

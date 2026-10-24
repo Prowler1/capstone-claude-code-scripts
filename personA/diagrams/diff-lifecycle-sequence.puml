@@ -1,0 +1,68 @@
+@startuml diff-lifecycle-sequence
+' Figure A.1 — one /diff lifecycle, as mods/diff/hooks/register.ts runs it.
+' Provenance: manual static analysis of mods/diff/hooks/register.ts at commit
+' bf2323b (lines cited in notes); rendered using PlantUML.
+' Every participant marked <<closure>> is a local function or variable inside
+' the single register(on) closure, not a separate module.
+
+skinparam shadowing false
+skinparam sequenceMessageAlign left
+<style>
+participant {
+  Padding 6
+}
+</style>
+hide footbox
+
+participant "Engine\n($)" as E
+box "register(on) closure — register.ts" #F4F4F4
+  participant "session.start\nhook" as SS <<closure>>
+  participant "command.run\n{diff} hook" as CR <<closure>>
+  participant "pinBackend /\nprobeBackend" as PB <<closure>>
+  participant "openPane /\nrefresh" as RF <<closure>>
+  participant "loadBodies /\nfetchBodies" as LB <<closure>>
+  participant "redraw" as RD <<closure>>
+  participant "ui.render\n{Pane} hook" as UR <<closure>>
+end box
+participant "Backend\n(backend/)" as BK
+participant "PaneState\n(pane-state/)" as PS
+participant "Views\n(views/)" as V
+
+== session start (L674–716) ==
+E -> SS : session.start(cwd)
+SS -> SS : bind(): host := adapter over $\n(21 members), pin.cwd := cwd
+SS -> E : command.register(COMMAND_SPEC)
+
+== person types /diff (L793–846) ==
+E -> CR : command.run {diff}
+CR -> PB : pinBackend(host)
+PB -> BK : backendOf(host, INSTALLED_BACKEND_PROBES)
+BK --> PB : backend | null
+PB -> PB : backend := probed; startPoll()\nmodel := {...words, baseModes}
+note right of PB : writes closure vars\nbackend, probing, pin, polled, timers, model
+CR -> RF : openPane(host, 'manual')
+RF -> E : ui.open(pane)
+RF -> RF : isPaneOpen := true; keepBaseline()
+RF -> BK : fetchDiff(model.requestedMode)
+BK --> RF : FetchOutcome
+RF -> PS : afterFetch(model, {outcome, messages})
+PS --> RF : model'   (pure Update)
+RF -> LB : loadBodies(host)
+LB -> BK : fetchHunks(data, drawnFilesOf(model))
+BK --> LB : hunks
+LB -> LB : model := {...bodies}
+LB -> RD : redraw(host)
+RD -> E : clock.after(REDRAW_COALESCE_MS, invalidate)
+CR --> E : { text: PANEL_SHOWN_TEXT }
+
+== engine draws (L739–791) ==
+E -> UR : ui.render {Pane}
+UR -> UR : model := {...placement, place}
+UR -> V : paneView(ui, actionsOf(host), model)
+note right of V : pure View; its callbacks\n(actionsOf, L553–631) close\nover and mutate model
+V --> E : element tree
+
+== Claude edits a file (L997–1013 → L967–995) ==
+E -> RF : tool.call {Edit} ... afterTool()
+RF -> RF : landed += 1; scheduleRefresh()\n(debounce REFRESH_DEBOUNCE_MS)
+@enduml

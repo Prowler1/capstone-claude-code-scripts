@@ -1,0 +1,106 @@
+--- a/mods/diff/hooks/register.ts
++++ b/mods/diff/hooks/register.ts
+@@ -9,8 +9,8 @@
+ 
+ import Ask from './ask'
+ import Backend from './backend'
++import { bodyLoaderOf } from './body-loader'
+ import { COMMAND_SPEC } from './command-spec'
+-import { drawnFilesOf } from './drawn-files-of'
+ import { entryKindsOf } from './entry-kinds-of'
+ import type Git from './git'
+ import type { Host } from './host'
+@@ -57,10 +57,6 @@
+   let isRefreshQueued = false
+   let generation = 0
+   let landed = 0
+-  let bodyStamp: string | null = null
+-  let bodyBase: string | null = null
+-
+-  const bodyLoads = new Set<string>()
+ 
+   const polled = { toplevel: '', headKey: '' }
+   const pin = { cwd: '', isEmpty: false, epoch: 0 }
+@@ -216,61 +212,17 @@
+     )
+   }
+ 
+-  async function loadBodies(engine: Host): Promise<boolean> {
+-    const { data } = model
+-    const pinned = backend
+-
+-    if (!data || !pinned) {
+-      bodyStamp = null
+-      bodyBase = null
+-      bodyLoads.clear()
+-      model = { ...model, bodies: PaneState.NO_BODIES }
+-
+-      return false
+-    }
+-
+-    const stamp = bodyStampOf(data)
+-    const isNewBase = data.baseRef !== bodyBase
+-
+-    if (stamp !== bodyStamp) {
+-      bodyStamp = stamp
+-      bodyLoads.clear()
+-    }
+-
+-    if (isNewBase) {
+-      bodyBase = data.baseRef
+-      model = { ...model, bodies: PaneState.NO_BODIES }
+-      redraw(engine)
+-    }
+-
+-    return fetchBodies(engine, pinned, data)
+-  }
+-
+-  const bodyStampOf = (data: Git.DiffData) => `${generation}|${data.baseRef}`
+-
+-  async function fetchBodies(
+-    engine: Host,
+-    pinned: Backend.Backend,
+-    data: Git.DiffData,
+-  ): Promise<boolean> {
+-    const stamp = bodyStampOf(data)
+-
+-    const files = drawnFilesOf(model).filter(file => !bodyLoads.has(file.path))
+-
+-    for (const file of files) {
+-      bodyLoads.add(file.path)
+-    }
+-
+-    const read = await pinned.fetchHunks(data, files)
+-    const isCurrent = bodyStamp === stamp && read.size > 0
+-
+-    if (isCurrent) {
+-      model = { ...model, bodies: new Map([...model.bodies, ...read]) }
+-      redraw(engine)
+-    }
++  const bodies = bodyLoaderOf({
++    modelOf: () => model,
++    setModel: next => {
++      model = next
++    },
++    backendOf: () => backend,
++    generationOf: () => generation,
++  })
+ 
+-    return [...read.values()].includes(null)
+-  }
++  const loadBodies = (engine: Host): Promise<boolean> =>
++    bodies.load(() => redraw(engine))
+ 
+   function keepBaseline() {
+     const pinned = backend
+@@ -943,9 +895,7 @@
+     unpin()
+     hasAutoOpened = false
+     hasRestoredEdits = false
+-    bodyStamp = null
+-    bodyBase = null
+-    bodyLoads.clear()
++    bodies.reset()
+     disarm(host)
+     model = PaneState.afterNewSession(model)
+ 
