@@ -88,7 +88,7 @@ They read `data/` and (re)write everything in `analysis2/`. Running them on the 
 
 ### Collecting the data again (optional)
 
-`main.py` needs a GitHub personal access token in the `GITHUB_TOKEN` environment variable. Never put the token in the code.
+`main.py` needs a GitHub personal access token in the `GITHUB_TOKEN` environment variable. Never put the token in the code :).
 
 ```
 export GITHUB_TOKEN=your_token_here      # Windows PowerShell: $env:GITHUB_TOKEN="your_token_here"
